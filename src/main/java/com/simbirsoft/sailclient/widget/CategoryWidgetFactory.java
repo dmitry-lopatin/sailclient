@@ -2,30 +2,45 @@ package com.simbirsoft.sailclient.widget;
 
 import javafx.scene.control.ListView;
 
-public class AddressWidgetBuilder extends WidgetBuilder {
+public class CategoryWidgetFactory extends WidgetFactory {
 
+    @Override
     void setWidgetTitle() {
-        widget.setTitle("Addresses");
+        widget.setTitle("Categories");
     }
+
+    @Override
     void setWidgetLayout() {
-        widget.setLayoutX(150);
+        widget.setLayoutX(465);
         widget.setLayoutY(5);
     }
+
+    @Override
     void setWidgetPrefSize() {
-        widget.setPrefSize(300, 200);
+        widget.setPrefSize(200, 200);
     }
+
+    @Override
     void setWidgetMinSize() {
-        widget.setMinSize(225, 100);
+        widget.setMinSize(150, 100);
     }
+
+    @Override
     void setWidgetResizable() {
         widget.setResizableWindow(true);
     }
+
+    @Override
     void setWidgetMovable() {
         widget.setMovable(true);
     }
+
+    @Override
     void setWidgetVisible() {
         widget.setVisible(true);
     }
+
+    @Override
     void setWidgetContent() {
         widget.getContentPane().getChildren().add(new ListView());
     }

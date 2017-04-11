@@ -2,15 +2,20 @@ package com.simbirsoft.sailclient.widget;
 
 import jfxtras.labs.scene.control.window.Window;
 
-abstract class WidgetBuilder {
+abstract class WidgetFactory {
     Window widget;
 
-    Window getWidget() {
-        return widget;
-    }
-
-    void createNewWidget() {
+    Window constructWidget() {
         widget = new Window();
+        setWidgetTitle();
+        setWidgetLayout();
+        setWidgetPrefSize();
+        setWidgetMinSize();
+        setWidgetResizable();
+        setWidgetMovable();
+        setWidgetVisible();
+        setWidgetContent();
+        return widget;
     }
 
     abstract void setWidgetTitle();

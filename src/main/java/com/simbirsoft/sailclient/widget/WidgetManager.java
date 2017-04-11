@@ -19,7 +19,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
 import com.simbirsoft.sailclient.connector.HttpConnector;
-import com.simbirsoft.sailclient.util.ConnectionMessage;
 import com.simbirsoft.sailclient.util.PropertiesReader;
 import com.simbirsoft.sailclient.util.UrlParam;
 
@@ -31,14 +30,11 @@ public class WidgetManager {
 
     private final HttpConnector httpConnector;
     private final JSONParser jsonParser;
-    private final WidgetDirector widgetDirector;
-    private WidgetBuilder widgetBuilder;
     private final PropertiesReader propertiesReader;
 
     public WidgetManager() {
         httpConnector = new HttpConnector();
         jsonParser = new JSONParser();
-        widgetDirector = new WidgetDirector();
         propertiesReader = new PropertiesReader();
     }
 
@@ -68,26 +64,20 @@ public class WidgetManager {
     }
 
     private void initAddressWidget(Pane outerPane) {
-        widgetBuilder = new AddressWidgetBuilder();
-        widgetDirector.setWidgetBuilder(widgetBuilder);
-        widgetDirector.constructWidget();
-        addressWidget = widgetDirector.getWidget();
+        WidgetFactory widgetFactory = new AddressWidgetFactory();
+        addressWidget = widgetFactory.constructWidget();
         outerPane.getChildren().add(addressWidget);
     }
 
     private void initCategoryWidget(Pane outerPane) {
-        widgetBuilder = new CategoryWidgetBuilder();
-        widgetDirector.setWidgetBuilder(widgetBuilder);
-        widgetDirector.constructWidget();
-        categoryWidget = widgetDirector.getWidget();
+        WidgetFactory widgetFactory = new CategoryWidgetFactory();
+        categoryWidget = widgetFactory.constructWidget();
         outerPane.getChildren().add(categoryWidget);
     }
 
     private void initTotalWidget(Pane outerPane) {
-        widgetBuilder = new TotalWidgetBuilder();
-        widgetDirector.setWidgetBuilder(widgetBuilder);
-        widgetDirector.constructWidget();
-        totalWidget = widgetDirector.getWidget();
+        WidgetFactory widgetFactory = new TotalWidgetFactory();
+        totalWidget = widgetFactory.constructWidget();
         outerPane.getChildren().add(totalWidget);
     }
 
@@ -101,7 +91,7 @@ public class WidgetManager {
             try {
                 jsonList = getAndParseJsonToList(node, url);
             } catch (Exception e) {
-                listView.setItems(FXCollections.observableArrayList(ConnectionMessage.CONNECTION_FAILURE));
+                listView.setItems(FXCollections.observableArrayList(propertiesReader.getConnectionFailureMessage()));
                 return;
             }
             jsonList.forEach(address -> {
@@ -129,7 +119,7 @@ public class WidgetManager {
             try {
                 jsonList = getAndParseJsonToList(node, url);
             } catch (Exception e) {
-                listView.setItems(FXCollections.observableArrayList(ConnectionMessage.CONNECTION_FAILURE));
+                listView.setItems(FXCollections.observableArrayList(propertiesReader.getConnectionFailureMessage()));
                 return;
             }
             jsonList.forEach(address -> {
@@ -154,7 +144,7 @@ public class WidgetManager {
             try {
                 jsonDouble = getAndParseJsonToDouble(node, url);
             } catch (Exception e) {
-                listView.setItems(FXCollections.observableArrayList(ConnectionMessage.CONNECTION_FAILURE));
+                listView.setItems(FXCollections.observableArrayList(propertiesReader.getConnectionFailureMessage()));
                 return;
             }
             listView.setItems(FXCollections.observableArrayList(jsonDouble));

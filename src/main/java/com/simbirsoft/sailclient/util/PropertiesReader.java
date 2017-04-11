@@ -6,31 +6,39 @@ import java.util.Properties;
 
 public class PropertiesReader {
 
-    FileInputStream fileInputStream;
-    Properties properties;
-    static String hostUrl;
+    private FileInputStream fileInputStream;
+    private Properties properties;
+    private String getAllAddressesUrl;
+    private String getAllCategoriesUrl;
+    private String getCategoriesByAddressListUrl;
+    private String getTotalByAddressesAndCategoriesUrl;
+    private String connectionFailureMessage;
 
     public void readProperties() throws IOException {
         properties = new Properties();
         fileInputStream = new FileInputStream("src/main/resources/config.properties");
         properties.load(fileInputStream);
 
-        hostUrl = properties.getProperty("hostUrl");
+        getAllAddressesUrl = properties.getProperty("getAllAddressesUrl");
+        getAllCategoriesUrl = properties.getProperty("getAllCategoriesUrl");
+        getCategoriesByAddressListUrl = properties.getProperty("getCategoriesByAddressListUrl");
+        getTotalByAddressesAndCategoriesUrl = properties.getProperty("getTotalByAddressesAndCategoriesUrl");
+        connectionFailureMessage = properties.getProperty("connectionFailureMessage");
     }
 
     public String getAllAddressesUrl() {
-        return hostUrl+"getAllAddresses";
+        return getAllAddressesUrl;
     }
     public String getAllCategoriesUrl() {
-        return hostUrl+"getAllCategories";
+        return getAllCategoriesUrl;
     }
     public String getTotalByAddressesAndCategoriesUrl() {
-        return hostUrl+"getSumByAddressesAndCategories";
+        return getTotalByAddressesAndCategoriesUrl;
     }
     public String getCategoriesByAddressListUrl() {
-        return hostUrl+"getCategoriesByAddressList";
+        return getCategoriesByAddressListUrl;
     }
-    public static final String GET_ALL_CATEGORIES = hostUrl+"getAllCategories";
-    public static final String GET_TOTAL_BY_ADDRESSES_AND_CATEGORIES = hostUrl+"getSumByAddressesAndCategories";
-    public static final String GET_CATEGORIES_BY_ADDRESS_LIST = hostUrl+"getCategoriesByAddressList";
+    public String getConnectionFailureMessage() {
+        return connectionFailureMessage;
+    }
 }
