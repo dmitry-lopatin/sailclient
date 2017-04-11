@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3270e9b-43f6-47fe-a9dc-e22d9978cc25" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/util/ConnectionMessage.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/WidgetDirector.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/util/PropertiesReader.java" afterPath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/util/PropertiesReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/WidgetManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/WidgetManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/config.properties" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/AddressWidgetBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/AddressWidgetFactory.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/CategoryWidgetBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/CategoryWidgetFactory.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/TotalWidgetBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/TotalWidgetFactory.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/WidgetBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/WidgetFactory.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -53,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.properties" pinned="false" current-in-tab="false">
+      <file leaf-file-name="config.properties" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/config.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+              <caret line="5" column="45" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -95,7 +87,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TotalWidgetFactory.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TotalWidgetFactory.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/TotalWidgetFactory.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
@@ -111,11 +103,10 @@
       <file leaf-file-name="CategoryWidgetFactory.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/CategoryWidgetFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
+            <state relative-caret-position="459">
               <caret line="42" column="13" lean-forward="false" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
               <folding>
-                <element signature="e#474#475#0" expanded="true" />
-                <element signature="e#517#518#0" expanded="true" />
+                <element signature="method#setWidgetLayout#0;class#CategoryWidgetFactory#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -215,7 +206,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/TotalWidgetBuilder.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/WidgetConstructor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/util/UrlPage.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/config.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/util/PropertiesReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/WidgetBuilder.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/TotalWidgetFactory.java" />
@@ -223,6 +213,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/AddressWidgetFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/WidgetManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/WidgetFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/config.properties" />
       </list>
     </option>
   </component>
@@ -942,7 +933,7 @@
       <workItem from="1491798076320" duration="25708000" />
       <workItem from="1491836012801" duration="19311000" />
       <workItem from="1491893265489" duration="19941000" />
-      <workItem from="1491922779604" duration="4592000" />
+      <workItem from="1491922779604" duration="4714000" />
     </task>
     <task id="LOCAL-00001" summary="primary-functional-implemented">
       <created>1491856389197</created>
@@ -979,11 +970,18 @@
       <option name="project" value="LOCAL" />
       <updated>1491916387110</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="code-review-factory-added">
+      <created>1491940307164</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1491940307164</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75021000" />
+    <option name="totallyTimeSpent" value="75143000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1033,7 +1031,8 @@
     <MESSAGE value="clean-commit" />
     <MESSAGE value="code-analysis-fixes" />
     <MESSAGE value="code-review-fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="code-review-fixes" />
+    <MESSAGE value="code-review-factory-added" />
+    <option name="LAST_COMMIT_MESSAGE" value="code-review-factory-added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1264,14 +1263,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/config.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/util/PropertiesReader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
@@ -1297,27 +1288,6 @@
         <state relative-caret-position="68">
           <caret line="4" column="20" lean-forward="true" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/CategoryWidgetFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="42" column="13" lean-forward="false" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
-          <folding>
-            <element signature="e#474#475#0" expanded="true" />
-            <element signature="e#517#518#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/WidgetManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="73" column="21" lean-forward="false" selection-start-line="73" selection-start-column="21" selection-end-line="73" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1348,6 +1318,34 @@
             <element signature="e#731#732#0" expanded="true" />
             <element signature="e#770#771#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/CategoryWidgetFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="42" column="13" lean-forward="false" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+          <folding>
+            <element signature="method#setWidgetLayout#0;class#CategoryWidgetFactory#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/simbirsoft/sailclient/widget/WidgetManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="73" column="21" lean-forward="false" selection-start-line="73" selection-start-column="21" selection-end-line="73" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="45" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
     </entry>
