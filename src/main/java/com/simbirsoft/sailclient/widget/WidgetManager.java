@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import jfxtras.labs.scene.control.window.Window;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,7 +20,7 @@ import org.json.simple.parser.JSONParser;
 
 import com.simbirsoft.sailclient.connector.HttpConnector;
 import com.simbirsoft.sailclient.util.ConnectionMessage;
-import com.simbirsoft.sailclient.util.UrlPage;
+import com.simbirsoft.sailclient.util.PropertiesReader;
 import com.simbirsoft.sailclient.util.UrlParam;
 
 public class WidgetManager {
@@ -30,22 +31,28 @@ public class WidgetManager {
 
     private final HttpConnector httpConnector;
     private final JSONParser jsonParser;
+    private final WidgetDirector widgetDirector;
+    private WidgetBuilder widgetBuilder;
+    private final PropertiesReader propertiesReader;
 
     public WidgetManager() {
         httpConnector = new HttpConnector();
         jsonParser = new JSONParser();
+        widgetDirector = new WidgetDirector();
+        propertiesReader = new PropertiesReader();
     }
 
-    public void initWidgets(Pane outerPane) {
+    public void initWidgets(Pane outerPane) throws IOException{
+        propertiesReader.readProperties();
         initAddressWidget(outerPane);
         initCategoryWidget(outerPane);
         initTotalWidget(outerPane);
     }
 
     public void fillWidgets() {
-        fillAddressWidget(addressWidget.getContentPane().getChildren().get(0), UrlPage.GET_ALL_ADDRESSES);
-        fillCategoryWidget(categoryWidget.getContentPane().getChildren().get(0), UrlPage.GET_ALL_CATEGORIES);
-        fillTotalWidget(totalWidget.getContentPane().getChildren().get(0), UrlPage.GET_TOTAL_BY_ADDRESSES_AND_CATEGORIES);
+        fillAddressWidget(addressWidget.getContentPane().getChildren().get(0), propertiesReader.getAllAddressesUrl());
+        fillCategoryWidget(categoryWidget.getContentPane().getChildren().get(0), propertiesReader.getAllCategoriesUrl());
+        fillTotalWidget(totalWidget.getContentPane().getChildren().get(0), propertiesReader.getTotalByAddressesAndCategoriesUrl());
     }
 
     public Window getAddressWidget() {
@@ -61,27 +68,34 @@ public class WidgetManager {
     }
 
     private void initAddressWidget(Pane outerPane) {
-        addressWidget = WidgetConstructor.construct("Addresses", 150, 5, 300,
-                200, 225, 100, true, true, true);
+        widgetBuilder = new AddressWidgetBuilder();
+        widgetDirector.setWidgetBuilder(widgetBuilder);
+        widgetDirector.constructWidget();
+        addressWidget = widgetDirector.getWidget();
         outerPane.getChildren().add(addressWidget);
     }
 
     private void initCategoryWidget(Pane outerPane) {
-        categoryWidget = WidgetConstructor.construct("Categories", 465, 5, 200,
-                200, 150, 100, true, true, true);
+        widgetBuilder = new CategoryWidgetBuilder();
+        widgetDirector.setWidgetBuilder(widgetBuilder);
+        widgetDirector.constructWidget();
+        categoryWidget = widgetDirector.getWidget();
         outerPane.getChildren().add(categoryWidget);
     }
 
     private void initTotalWidget(Pane outerPane) {
-        totalWidget = WidgetConstructor.construct("Total", 150, 220, 200, 75,
-                150, 75, true, true, true);
+        widgetBuilder = new TotalWidgetBuilder();
+        widgetDirector.setWidgetBuilder(widgetBuilder);
+        widgetDirector.constructWidget();
+        totalWidget = widgetDirector.getWidget();
         outerPane.getChildren().add(totalWidget);
     }
 
     private void fillAddressWidget(Node node, String url) {
 
         if (node.getClass() == ListView.class) {
-            ListView<Object> listView = (ListView) node;
+
+            ListView<Object> listView = (ListView<Object>) node;
             ArrayList<CheckBox> itemCheckBoxList = new ArrayList<>();
             List<Object> jsonList;
             try {
@@ -98,14 +112,10 @@ public class WidgetManager {
             listView.setItems(FXCollections.observableArrayList(itemCheckBoxList));
 
             itemCheckBoxList.forEach(checkBox -> checkBox.setOnAction(event -> {
-                try {
                     List<String> selectedCheckBoxList = getSelectedCheckBoxList(itemCheckBoxList);
                     updateCategories(selectedCheckBoxList);
                     updateTotal(selectedCheckBoxList, getSelectedCheckBoxList(((ListView<CheckBox>) categoryWidget.getContentPane().getChildren().get(0)).getItems()));
                     event.consume();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }));
         }
     }
@@ -130,13 +140,9 @@ public class WidgetManager {
             listView.setItems(FXCollections.observableArrayList(itemCheckBoxList));
 
             itemCheckBoxList.forEach(checkBox -> checkBox.setOnAction(event -> {
-                try {
                     updateTotal(getSelectedCheckBoxList(((ListView<CheckBox>) addressWidget.getContentPane().getChildren().get(0)).getItems()),
                             getSelectedCheckBoxList(itemCheckBoxList));
                     event.consume();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }));
         }
     }
@@ -166,7 +172,7 @@ public class WidgetManager {
     }
 
     private void updateCategories(List<String> selectedAddressesList) {
-        String url = UrlPage.GET_CATEGORIES_BY_ADDRESS_LIST + "?" + UrlParam.ADDRESSES;
+        String url = PropertiesReader.GET_CATEGORIES_BY_ADDRESS_LIST + "?" + UrlParam.ADDRESSES;
         String params;
 
         params = String.join("&" + UrlParam.ADDRESSES, selectedAddressesList);
@@ -176,7 +182,7 @@ public class WidgetManager {
     }
 
     private void updateTotal(List<String> selectedAddressList, List<String> selectedCategoriesList) {
-        String addressesUrl = UrlPage.GET_TOTAL_BY_ADDRESSES_AND_CATEGORIES + "?" + UrlParam.ADDRESSES;
+        String addressesUrl = PropertiesReader.GET_TOTAL_BY_ADDRESSES_AND_CATEGORIES + "?" + UrlParam.ADDRESSES;
         String categoriesUrl = "&" + UrlParam.CATEGORIES;
         String addressParams = String.join("&" + UrlParam.ADDRESSES, selectedAddressList);
         String categoryParams = String.join("&" + UrlParam.CATEGORIES, selectedCategoriesList);
@@ -205,7 +211,7 @@ public class WidgetManager {
             Object[] jsonObjects = jsonArray.toArray();
             return new ArrayList<>(Arrays.asList(jsonObjects));
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     private double getAndParseJsonToDouble(Node node, String url) throws Exception {
