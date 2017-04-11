@@ -8,7 +8,7 @@ import java.net.URL;
 public class HttpConnector {
 
     public static String executeGet(String targetUrl) throws Exception{
-        HttpURLConnection connection = null;
+        HttpURLConnection connection;
         StringBuilder result = new StringBuilder();
 
         URL url = new URL(targetUrl);
@@ -18,8 +18,7 @@ public class HttpConnector {
 
         connection.setRequestProperty("Content-Type", "application/json");
 
-        BufferedReader bufferedReader = null;
-        bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String line;
         while ((line = bufferedReader.readLine()) != null) {
             result.append(line);
