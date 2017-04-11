@@ -7,7 +7,7 @@ import java.net.URL;
 
 public class HttpConnector {
 
-    public static String executeGet(String targetUrl) throws Exception{
+    public String executeGet(String targetUrl) throws Exception{
         HttpURLConnection connection;
         StringBuilder result = new StringBuilder();
 

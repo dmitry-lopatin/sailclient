@@ -3,6 +3,7 @@ package com.simbirsoft.sailclient.widget;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import jfxtras.labs.scene.control.window.Window;
@@ -27,8 +28,8 @@ public class WidgetManager {
     private Window categoryWidget;
     private Window totalWidget;
 
-    private HttpConnector httpConnector;
-    private JSONParser jsonParser;
+    private final HttpConnector httpConnector;
+    private final JSONParser jsonParser;
 
     public WidgetManager() {
         httpConnector = new HttpConnector();
@@ -60,19 +61,19 @@ public class WidgetManager {
     }
 
     private void initAddressWidget(Pane outerPane) {
-        addressWidget = WidgetConstructor.constuct("Addresses", 150, 5, 300,
+        addressWidget = WidgetConstructor.construct("Addresses", 150, 5, 300,
                 200, 225, 100, true, true, true);
         outerPane.getChildren().add(addressWidget);
     }
 
     private void initCategoryWidget(Pane outerPane) {
-        categoryWidget = WidgetConstructor.constuct("Categories", 465, 5, 200,
+        categoryWidget = WidgetConstructor.construct("Categories", 465, 5, 200,
                 200, 150, 100, true, true, true);
         outerPane.getChildren().add(categoryWidget);
     }
 
     private void initTotalWidget(Pane outerPane) {
-        totalWidget = WidgetConstructor.constuct("Total", 150, 220, 200, 75,
+        totalWidget = WidgetConstructor.construct("Total", 150, 220, 200, 75,
                 150, 75, true, true, true);
         outerPane.getChildren().add(totalWidget);
     }
@@ -80,7 +81,7 @@ public class WidgetManager {
     private void fillAddressWidget(Node node, String url) {
 
         if (node.getClass() == ListView.class) {
-            ListView listView = (ListView) node;
+            ListView<Object> listView = (ListView) node;
             ArrayList<CheckBox> itemCheckBoxList = new ArrayList<>();
             List<Object> jsonList;
             try {
@@ -89,18 +90,18 @@ public class WidgetManager {
                 listView.setItems(FXCollections.observableArrayList(ConnectionMessage.CONNECTION_FAILURE));
                 return;
             }
-            jsonList.stream().forEach(address -> {
+            jsonList.forEach(address -> {
                 CheckBox checkBox = new CheckBox((address.toString()));
                 checkBox.setSelected(true);
                 itemCheckBoxList.add(checkBox);
             });
             listView.setItems(FXCollections.observableArrayList(itemCheckBoxList));
 
-            itemCheckBoxList.stream().forEach(checkBox -> checkBox.setOnAction(event -> {
+            itemCheckBoxList.forEach(checkBox -> checkBox.setOnAction(event -> {
                 try {
                     List<String> selectedCheckBoxList = getSelectedCheckBoxList(itemCheckBoxList);
                     updateCategories(selectedCheckBoxList);
-                    updateTotal(selectedCheckBoxList, getSelectedCheckBoxList(((ListView) categoryWidget.getContentPane().getChildren().get(0)).getItems()));
+                    updateTotal(selectedCheckBoxList, getSelectedCheckBoxList(((ListView<CheckBox>) categoryWidget.getContentPane().getChildren().get(0)).getItems()));
                     event.consume();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -111,7 +112,7 @@ public class WidgetManager {
 
     private void fillCategoryWidget(Node node, String url) {
         if (node.getClass() == ListView.class) {
-            ListView listView = (ListView) node;
+            ListView<Object> listView = (ListView) node;
 
             ArrayList<CheckBox> itemCheckBoxList = new ArrayList<>();
             List<Object> jsonList;
@@ -121,16 +122,16 @@ public class WidgetManager {
                 listView.setItems(FXCollections.observableArrayList(ConnectionMessage.CONNECTION_FAILURE));
                 return;
             }
-            jsonList.stream().forEach(address -> {
+            jsonList.forEach(address -> {
                 CheckBox checkBox = new CheckBox((address.toString()));
                 checkBox.setSelected(true);
                 itemCheckBoxList.add(checkBox);
             });
             listView.setItems(FXCollections.observableArrayList(itemCheckBoxList));
 
-            itemCheckBoxList.stream().forEach(checkBox -> checkBox.setOnAction(event -> {
+            itemCheckBoxList.forEach(checkBox -> checkBox.setOnAction(event -> {
                 try {
-                    updateTotal(getSelectedCheckBoxList(((ListView) addressWidget.getContentPane().getChildren().get(0)).getItems()),
+                    updateTotal(getSelectedCheckBoxList(((ListView<CheckBox>) addressWidget.getContentPane().getChildren().get(0)).getItems()),
                             getSelectedCheckBoxList(itemCheckBoxList));
                     event.consume();
                 } catch (Exception e) {
@@ -142,7 +143,7 @@ public class WidgetManager {
 
     private void fillTotalWidget(Node node, String url) {
         if (node.getClass() == ListView.class) {
-            ListView listView = (ListView) node;
+            ListView<Object> listView = (ListView<Object>) node;
             Double jsonDouble;
             try {
                 jsonDouble = getAndParseJsonToDouble(node, url);
@@ -158,13 +159,13 @@ public class WidgetManager {
         List<CheckBox> selectedCheckBoxList = new ArrayList<>();
         List<String> selectedTextList = new ArrayList<>();
 
-        selectedCheckBoxList.addAll(checkBoxList.stream().filter(checkBox -> checkBox.isSelected()).collect(Collectors.toList()));
-        selectedTextList.addAll(selectedCheckBoxList.stream().map(checkBox -> checkBox.getText()).collect(Collectors.toList()));
+        selectedCheckBoxList.addAll(checkBoxList.stream().filter(CheckBox::isSelected).collect(Collectors.toList()));
+        selectedTextList.addAll(selectedCheckBoxList.stream().map(Labeled::getText).collect(Collectors.toList()));
 
         return selectedTextList;
     }
 
-    private void updateCategories(List<String> selectedAddressesList) throws Exception {
+    private void updateCategories(List<String> selectedAddressesList) {
         String url = UrlPage.GET_CATEGORIES_BY_ADDRESS_LIST + "?" + UrlParam.ADDRESSES;
         String params;
 
@@ -174,7 +175,7 @@ public class WidgetManager {
         fillCategoryWidget(categoryWidget.getContentPane().getChildren().get(0), result);
     }
 
-    private void updateTotal(List<String> selectedAddressList, List<String> selectedCategoriesList) throws Exception {
+    private void updateTotal(List<String> selectedAddressList, List<String> selectedCategoriesList) {
         String addressesUrl = UrlPage.GET_TOTAL_BY_ADDRESSES_AND_CATEGORIES + "?" + UrlParam.ADDRESSES;
         String categoriesUrl = "&" + UrlParam.CATEGORIES;
         String addressParams = String.join("&" + UrlParam.ADDRESSES, selectedAddressList);
