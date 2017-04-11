@@ -1,13 +1,10 @@
 package com.simbirsoft.sailclient.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.Background;
+
 import javafx.scene.layout.Pane;
 import jfxtras.labs.scene.control.window.Window;
 
-import org.json.simple.parser.JSONParser;
-
-import com.simbirsoft.sailclient.connector.HttpConnector;
 import com.simbirsoft.sailclient.widget.WidgetManager;
 
 public class PrimaryController {
@@ -19,15 +16,11 @@ public class PrimaryController {
     private Window categoryWidget;
     private Window totalWidget;
 
-    private HttpConnector httpConnector;
-    private JSONParser jsonParser;
     private WidgetManager widgetManager;
 
     @FXML
     public void initialize() throws Exception {
 
-        httpConnector = new HttpConnector();
-        jsonParser = new JSONParser();
         widgetManager = new WidgetManager();
 
         widgetManager.initWidgets(root);
