@@ -172,7 +172,7 @@ public class WidgetManager {
     }
 
     private void updateCategories(List<String> selectedAddressesList) {
-        String url = PropertiesReader.GET_CATEGORIES_BY_ADDRESS_LIST + "?" + UrlParam.ADDRESSES;
+        String url = propertiesReader.getCategoriesByAddressListUrl() + "?" + UrlParam.ADDRESSES;
         String params;
 
         params = String.join("&" + UrlParam.ADDRESSES, selectedAddressesList);
@@ -182,7 +182,7 @@ public class WidgetManager {
     }
 
     private void updateTotal(List<String> selectedAddressList, List<String> selectedCategoriesList) {
-        String addressesUrl = PropertiesReader.GET_TOTAL_BY_ADDRESSES_AND_CATEGORIES + "?" + UrlParam.ADDRESSES;
+        String addressesUrl = propertiesReader.getTotalByAddressesAndCategoriesUrl() + "?" + UrlParam.ADDRESSES;
         String categoriesUrl = "&" + UrlParam.CATEGORIES;
         String addressParams = String.join("&" + UrlParam.ADDRESSES, selectedAddressList);
         String categoryParams = String.join("&" + UrlParam.CATEGORIES, selectedCategoriesList);
