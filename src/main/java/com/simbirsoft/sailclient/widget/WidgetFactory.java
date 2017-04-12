@@ -3,13 +3,16 @@ package com.simbirsoft.sailclient.widget;
 import jfxtras.labs.scene.control.window.Window;
 
 import com.simbirsoft.sailclient.util.PropertiesReader;
+import com.simbirsoft.sailclient.util.UserPreferences;
 
 abstract class WidgetFactory {
     Window widget;
     PropertiesReader propertiesReader;
+    UserPreferences userPreferences;
 
     Window constructWidget() {
-        propertiesReader = PropertiesReader.getInstance();
+        propertiesReader = PropertiesReader.createInstance();
+        userPreferences = UserPreferences.createInstance();
         widget = new Window();
         setWidgetTitle();
         setWidgetLayout();

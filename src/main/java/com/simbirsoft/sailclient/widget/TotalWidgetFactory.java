@@ -11,13 +11,13 @@ class TotalWidgetFactory extends WidgetFactory {
 
     @Override
     void setWidgetLayout() {
-        widget.setLayoutX(propertiesReader.getTotalWidgetLayoutX());
-        widget.setLayoutY(propertiesReader.getTotalWidgetLayoutY());
+        widget.setLayoutX(userPreferences.getTotalWidgetLayoutX());
+        widget.setLayoutY(userPreferences.getTotalWidgetLayoutY());
     }
 
     @Override
     void setWidgetPrefSize() {
-        widget.setPrefSize(propertiesReader.getTotalWidgetPrefWidth(), propertiesReader.getTotalWidgetPrefHeight());
+        widget.setPrefSize(userPreferences.getTotalWidgetPrefWidth(), userPreferences.getTotalWidgetPrefHeight());
     }
 
     @Override

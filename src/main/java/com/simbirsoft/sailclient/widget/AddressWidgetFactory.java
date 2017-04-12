@@ -11,13 +11,15 @@ class AddressWidgetFactory extends WidgetFactory {
 
     @Override
     void setWidgetLayout() {
-        widget.setLayoutX(propertiesReader.getAddressWidgetLayoutX());
-        widget.setLayoutY(propertiesReader.getAddressWidgetLayoutY());
+        widget.setLayoutX(userPreferences.getAddressWidgetLayoutX());
+        widget.setLayoutY(userPreferences.getAddressWidgetLayoutY());
+//        widget.setLayoutX(propertiesReader.getAddressWidgetLayoutX());
+//        widget.setLayoutY(propertiesReader.getAddressWidgetLayoutY());
     }
 
     @Override
     void setWidgetPrefSize() {
-        widget.setPrefSize(propertiesReader.getAddressWidgetPrefWidth(), propertiesReader.getAddressWidgetPrefHeight());
+        widget.setPrefSize(userPreferences.getAddressWidgetPrefWidth(), userPreferences.getAddressWidgetPrefHeight());
     }
 
     @Override

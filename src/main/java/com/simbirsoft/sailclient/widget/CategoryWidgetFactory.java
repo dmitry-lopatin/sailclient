@@ -11,13 +11,13 @@ class CategoryWidgetFactory extends WidgetFactory {
 
     @Override
     void setWidgetLayout() {
-        widget.setLayoutX(propertiesReader.getCategoryWidgetLayoutX());
-        widget.setLayoutY(propertiesReader.getCategoryWidgetLayoutY());
+        widget.setLayoutX(userPreferences.getCategoryWidgetLayoutX());
+        widget.setLayoutY(userPreferences.getCategoryWidgetLayoutY());
     }
 
     @Override
     void setWidgetPrefSize() {
-        widget.setPrefSize(propertiesReader.getCategoryWidgetPrefWidth(), propertiesReader.getCategoryWidgetPrefHeight());
+        widget.setPrefSize(userPreferences.getCategoryWidgetPrefWidth(), userPreferences.getCategoryWidgetPrefHeight());
     }
 
     @Override
