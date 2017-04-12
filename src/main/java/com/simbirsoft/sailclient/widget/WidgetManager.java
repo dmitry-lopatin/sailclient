@@ -38,10 +38,14 @@ public class WidgetManager {
     private final JSONParser jsonParser;
     private final PropertiesReader propertiesReader;
 
-    public WidgetManager() {
+    private WidgetManager() {
         httpConnector = HttpConnector.getInstance();
         jsonParser = FabricJsonParser.createInstance();
         propertiesReader = PropertiesReader.getInstance();
+    }
+
+    public static WidgetManager createInstance() {
+        return new WidgetManager();
     }
 
     public void initWidgets(Pane outerPane) throws IOException{

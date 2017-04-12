@@ -20,7 +20,7 @@ public class PrimaryController {
     @FXML
     public void initialize() throws Exception {
 
-        widgetManager = new WidgetManager();
+        widgetManager = WidgetManager.createInstance();
 
         widgetManager.initWidgets(root);
         widgetManager.fillWidgets();
