@@ -11,7 +11,7 @@ public class HttpConnector {
 
     }
 
-    public static HttpConnector getInstance() {
+    public static HttpConnector createInstance() {
         return new HttpConnector();
     }
 

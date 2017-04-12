@@ -25,7 +25,7 @@ public class PropertiesReader {
         }
     }
 
-    public static PropertiesReader getInstance() {
+    public static PropertiesReader createInstance() {
         return new PropertiesReader();
     }
 

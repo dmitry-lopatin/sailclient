@@ -22,6 +22,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.simbirsoft.sailclient.connector.HttpConnector;
 import com.simbirsoft.sailclient.util.FabricJsonParser;
 import com.simbirsoft.sailclient.util.PropertiesReader;
+import com.simbirsoft.sailclient.util.UserPreferences;
+import com.simbirsoft.sailclient.util.WidgetType;
 
 
 public class WidgetManager {
@@ -37,11 +39,13 @@ public class WidgetManager {
     private final HttpConnector httpConnector;
     private final JSONParser jsonParser;
     private final PropertiesReader propertiesReader;
+    private final UserPreferences userPreferences;
 
     private WidgetManager() {
-        httpConnector = HttpConnector.getInstance();
+        httpConnector = HttpConnector.createInstance();
         jsonParser = FabricJsonParser.createInstance();
-        propertiesReader = PropertiesReader.getInstance();
+        propertiesReader = PropertiesReader.createInstance();
+        userPreferences = UserPreferences.createInstance();
     }
 
     public static WidgetManager createInstance() {
@@ -86,18 +90,30 @@ public class WidgetManager {
     private void initAddressWidget(Pane outerPane) {
         WidgetFactory widgetFactory = new AddressWidgetFactory();
         addressWidget = widgetFactory.constructWidget();
+        addressWidget.setOnMouseReleased(event -> {
+            userPreferences.saveWidgetPrefs(String.valueOf(WidgetType.ADDRESS_), addressWidget.getLayoutX(),
+                    addressWidget.getLayoutY(), addressWidget.getPrefWidth(), addressWidget.getPrefHeight());
+        });
         outerPane.getChildren().add(addressWidget);
     }
 
     private void initCategoryWidget(Pane outerPane) {
         WidgetFactory widgetFactory = new CategoryWidgetFactory();
         categoryWidget = widgetFactory.constructWidget();
+        categoryWidget.setOnMouseReleased(event -> {
+            userPreferences.saveWidgetPrefs(String.valueOf(WidgetType.CATEGORY_), categoryWidget.getLayoutX(),
+                    categoryWidget.getLayoutY(), categoryWidget.getPrefWidth(), categoryWidget.getPrefHeight());
+        });
         outerPane.getChildren().add(categoryWidget);
     }
 
     private void initTotalWidget(Pane outerPane) {
         WidgetFactory widgetFactory = new TotalWidgetFactory();
         totalWidget = widgetFactory.constructWidget();
+        totalWidget.setOnMouseReleased(event -> {
+            userPreferences.saveWidgetPrefs(String.valueOf(WidgetType.TOTAL_), totalWidget.getLayoutX(),
+                    totalWidget.getLayoutY(), totalWidget.getPrefWidth(), totalWidget.getPrefHeight());
+        });
         outerPane.getChildren().add(totalWidget);
     }
 
@@ -197,15 +213,21 @@ public class WidgetManager {
     }
 
     public void resetWidgetLocation() {
-        addressWidget.setLayoutX(150);
-        addressWidget.setLayoutY(5);
-        addressWidget.setPrefSize(300, 200);
-        categoryWidget.setLayoutX(465);
-        categoryWidget.setLayoutY(5);
-        categoryWidget.setPrefSize(200, 200);
-        totalWidget.setLayoutX(150);
-        totalWidget.setLayoutY(220);
-        totalWidget.setPrefSize(200, 75);
+        addressWidget.setLayoutX(propertiesReader.getAddressWidgetLayoutX());
+        addressWidget.setLayoutY(propertiesReader.getAddressWidgetLayoutY());
+        addressWidget.setPrefSize(propertiesReader.getAddressWidgetPrefWidth(), propertiesReader.getAddressWidgetPrefHeight());
+        categoryWidget.setLayoutX(propertiesReader.getCategoryWidgetLayoutX());
+        categoryWidget.setLayoutY(propertiesReader.getCategoryWidgetLayoutY());
+        categoryWidget.setPrefSize(propertiesReader.getCategoryWidgetPrefWidth(), propertiesReader.getCategoryWidgetPrefHeight());
+        totalWidget.setLayoutX(propertiesReader.getTotalWidgetLayoutX());
+        totalWidget.setLayoutY(propertiesReader.getTotalWidgetLayoutY());
+        totalWidget.setPrefSize(propertiesReader.getTotalWidgetPrefWidth(), propertiesReader.getTotalWidgetPrefHeight());
+        userPreferences.saveWidgetPrefs(String.valueOf(WidgetType.ADDRESS_), propertiesReader.getAddressWidgetLayoutX(), propertiesReader.getAddressWidgetLayoutY(),
+                propertiesReader.getAddressWidgetPrefWidth(), propertiesReader.getAddressWidgetPrefHeight());
+        userPreferences.saveWidgetPrefs(String.valueOf(WidgetType.CATEGORY_), propertiesReader.getCategoryWidgetLayoutX(), propertiesReader.getCategoryWidgetLayoutY(),
+                propertiesReader.getCategoryWidgetPrefWidth(), propertiesReader.getCategoryWidgetPrefHeight());
+        userPreferences.saveWidgetPrefs(String.valueOf(WidgetType.TOTAL_), propertiesReader.getTotalWidgetLayoutX(), propertiesReader.getTotalWidgetLayoutY(),
+                propertiesReader.getTotalWidgetPrefWidth(), propertiesReader.getTotalWidgetPrefHeight());
     }
 
     private List<Object> getAndParseJsonToList(Node node, String url) throws Exception {
