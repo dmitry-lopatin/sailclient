@@ -1,4 +1,4 @@
-package com.simbirsoft.sailclient.util;
+package com.sailclient.util;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

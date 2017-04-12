@@ -1,4 +1,4 @@
-package com.simbirsoft.sailclient.widget;
+package com.sailclient.widget;
 
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
@@ -18,11 +18,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.simbirsoft.sailclient.connector.HttpConnector;
-import com.simbirsoft.sailclient.util.FabricJsonParser;
-import com.simbirsoft.sailclient.util.PropertiesReader;
-import com.simbirsoft.sailclient.util.UserPreferences;
-import com.simbirsoft.sailclient.util.WidgetType;
+import com.sailclient.connector.HttpConnector;
+import com.sailclient.util.FabricJsonParser;
+import com.sailclient.util.WidgetType;
+import com.sailclient.util.PropertiesReader;
+import com.sailclient.util.UserPreferences;
 
 
 public class WidgetManager {

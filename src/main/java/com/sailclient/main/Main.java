@@ -1,4 +1,4 @@
-package com.simbirsoft.sailclient.main;
+package com.sailclient.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

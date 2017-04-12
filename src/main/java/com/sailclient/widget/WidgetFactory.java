@@ -1,9 +1,9 @@
-package com.simbirsoft.sailclient.widget;
+package com.sailclient.widget;
 
 import jfxtras.labs.scene.control.window.Window;
 
-import com.simbirsoft.sailclient.util.PropertiesReader;
-import com.simbirsoft.sailclient.util.UserPreferences;
+import com.sailclient.util.PropertiesReader;
+import com.sailclient.util.UserPreferences;
 
 abstract class WidgetFactory {
     Window widget;

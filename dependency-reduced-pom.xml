@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.simbirsoft</groupId>
+  <groupId>com.sailtest</groupId>
   <artifactId>sail-client</artifactId>
   <version>1.0-SNAPSHOT</version>
   <build>
@@ -11,7 +11,7 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <version>8.8.3</version>
         <configuration>
-          <mainClass>com.simbirsoft.sailclient.main.Main</mainClass>
+          <mainClass>com.sailclient.main.Main</mainClass>
         </configuration>
       </plugin>
       <plugin>
@@ -36,7 +36,7 @@
         <configuration>
           <transformers>
             <transformer>
-              <mainClass>com.simbirsoft.sailclient.main.Main</mainClass>
+              <mainClass>com.sailclient.main.Main</mainClass>
             </transformer>
           </transformers>
         </configuration>

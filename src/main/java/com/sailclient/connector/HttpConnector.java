@@ -1,4 +1,4 @@
-package com.simbirsoft.sailclient.connector;
+package com.sailclient.connector;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

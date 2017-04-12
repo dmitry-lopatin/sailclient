@@ -1,4 +1,4 @@
-package com.simbirsoft.sailclient.util;
+package com.sailclient.util;
 
 public enum UserPreferenceKey {
     LAYOUT_X, LAYOUT_Y, PREF_WIDTH, PREF_HEIGHT,

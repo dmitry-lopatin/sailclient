@@ -1,4 +1,4 @@
-package com.simbirsoft.sailclient.widget;
+package com.sailclient.widget;
 
 import javafx.scene.control.ListView;
 
