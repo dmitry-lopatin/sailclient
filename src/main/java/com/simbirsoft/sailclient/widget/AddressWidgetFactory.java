@@ -13,8 +13,6 @@ class AddressWidgetFactory extends WidgetFactory {
     void setWidgetLayout() {
         widget.setLayoutX(userPreferences.getAddressWidgetLayoutX());
         widget.setLayoutY(userPreferences.getAddressWidgetLayoutY());
-//        widget.setLayoutX(propertiesReader.getAddressWidgetLayoutX());
-//        widget.setLayoutY(propertiesReader.getAddressWidgetLayoutY());
     }
 
     @Override
