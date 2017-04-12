@@ -11,7 +11,7 @@ public class UserPreferences {
     private final Preferences userPreferences;
     private final PropertiesReader propertiesReader;
 
-    public UserPreferences() {
+    private UserPreferences() {
         propertiesReader = PropertiesReader.createInstance();
         userPreferences = Preferences.userRoot().node(PREFERENCES_NODE_NAME);
     }
@@ -59,7 +59,6 @@ public class UserPreferences {
 
     public void saveWidgetPrefs(String widgetTitle, double layoutX, double layoutY, double prefWidth, double prefHeight) {
         try (OutputStream outputStream = new FileOutputStream(UserPreferences.PREFERENCES_NODE_NAME)) {
-//            userPreferences.clear();
             userPreferences.put(widgetTitle+UserPreferenceKey.LAYOUT_X, String.valueOf(layoutX));
             userPreferences.put(widgetTitle+UserPreferenceKey.LAYOUT_Y, String.valueOf(layoutY));
             userPreferences.put(widgetTitle+UserPreferenceKey.PREF_WIDTH, String.valueOf(prefWidth));

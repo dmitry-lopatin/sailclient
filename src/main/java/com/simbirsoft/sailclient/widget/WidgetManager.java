@@ -8,7 +8,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import jfxtras.labs.scene.control.window.Window;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -52,7 +51,7 @@ public class WidgetManager {
         return new WidgetManager();
     }
 
-    public void initWidgets(Pane outerPane) throws IOException{
+    public void initWidgets(Pane outerPane) {
         propertiesReader.readUrlProperties();
         initAddressWidget(outerPane);
         initCategoryWidget(outerPane);
@@ -90,30 +89,24 @@ public class WidgetManager {
     private void initAddressWidget(Pane outerPane) {
         WidgetFactory widgetFactory = new AddressWidgetFactory();
         addressWidget = widgetFactory.constructWidget();
-        addressWidget.setOnMouseReleased(event -> {
-            userPreferences.saveWidgetPrefs(String.valueOf(WidgetType.ADDRESS_), addressWidget.getLayoutX(),
-                    addressWidget.getLayoutY(), addressWidget.getPrefWidth(), addressWidget.getPrefHeight());
-        });
+        addressWidget.setOnMouseReleased(event -> userPreferences.saveWidgetPrefs(String.valueOf(WidgetType.ADDRESS_), addressWidget.getLayoutX(),
+                addressWidget.getLayoutY(), addressWidget.getPrefWidth(), addressWidget.getPrefHeight()));
         outerPane.getChildren().add(addressWidget);
     }
 
     private void initCategoryWidget(Pane outerPane) {
         WidgetFactory widgetFactory = new CategoryWidgetFactory();
         categoryWidget = widgetFactory.constructWidget();
-        categoryWidget.setOnMouseReleased(event -> {
-            userPreferences.saveWidgetPrefs(String.valueOf(WidgetType.CATEGORY_), categoryWidget.getLayoutX(),
-                    categoryWidget.getLayoutY(), categoryWidget.getPrefWidth(), categoryWidget.getPrefHeight());
-        });
+        categoryWidget.setOnMouseReleased(event -> userPreferences.saveWidgetPrefs(String.valueOf(WidgetType.CATEGORY_), categoryWidget.getLayoutX(),
+                categoryWidget.getLayoutY(), categoryWidget.getPrefWidth(), categoryWidget.getPrefHeight()));
         outerPane.getChildren().add(categoryWidget);
     }
 
     private void initTotalWidget(Pane outerPane) {
         WidgetFactory widgetFactory = new TotalWidgetFactory();
         totalWidget = widgetFactory.constructWidget();
-        totalWidget.setOnMouseReleased(event -> {
-            userPreferences.saveWidgetPrefs(String.valueOf(WidgetType.TOTAL_), totalWidget.getLayoutX(),
-                    totalWidget.getLayoutY(), totalWidget.getPrefWidth(), totalWidget.getPrefHeight());
-        });
+        totalWidget.setOnMouseReleased(event -> userPreferences.saveWidgetPrefs(String.valueOf(WidgetType.TOTAL_), totalWidget.getLayoutX(),
+                totalWidget.getLayoutY(), totalWidget.getPrefWidth(), totalWidget.getPrefHeight()));
         outerPane.getChildren().add(totalWidget);
     }
 

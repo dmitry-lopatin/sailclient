@@ -1,6 +1,5 @@
 package com.simbirsoft.sailclient.util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -29,7 +28,7 @@ public class PropertiesReader {
         return new PropertiesReader();
     }
 
-    public void readUrlProperties() throws IOException {
+    public void readUrlProperties() {
         getAllAddressesUrl = properties.getProperty("getAllAddressesUrl");
         getAllCategoriesUrl = properties.getProperty("getAllCategoriesUrl");
         getCategoriesByAddressListUrl = properties.getProperty("getCategoriesByAddressListUrl");
