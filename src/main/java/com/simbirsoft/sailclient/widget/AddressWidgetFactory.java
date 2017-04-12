@@ -2,27 +2,27 @@ package com.simbirsoft.sailclient.widget;
 
 import javafx.scene.control.ListView;
 
-public class AddressWidgetFactory extends WidgetFactory {
+class AddressWidgetFactory extends WidgetFactory {
 
     @Override
     void setWidgetTitle() {
-        widget.setTitle("Addresses");
+        widget.setTitle(propertiesReader.getAddressWidgetTitle());
     }
 
     @Override
     void setWidgetLayout() {
-        widget.setLayoutX(150);
-        widget.setLayoutY(5);
+        widget.setLayoutX(propertiesReader.getAddressWidgetLayoutX());
+        widget.setLayoutY(propertiesReader.getAddressWidgetLayoutY());
     }
 
     @Override
     void setWidgetPrefSize() {
-        widget.setPrefSize(300, 200);
+        widget.setPrefSize(propertiesReader.getAddressWidgetPrefWidth(), propertiesReader.getAddressWidgetPrefHeight());
     }
 
     @Override
     void setWidgetMinSize() {
-        widget.setMinSize(225, 100);
+        widget.setMinSize(propertiesReader.getAddressWidgetMinWidth(), propertiesReader.getAddressWidgetMinHeight());
     }
 
     @Override

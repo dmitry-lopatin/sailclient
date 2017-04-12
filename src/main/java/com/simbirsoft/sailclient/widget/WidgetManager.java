@@ -17,10 +17,12 @@ import java.util.stream.Collectors;
 
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.simbirsoft.sailclient.connector.HttpConnector;
+import com.simbirsoft.sailclient.util.FabricJsonParser;
 import com.simbirsoft.sailclient.util.PropertiesReader;
-import com.simbirsoft.sailclient.util.UrlParam;
+
 
 public class WidgetManager {
 
@@ -28,27 +30,41 @@ public class WidgetManager {
     private Window categoryWidget;
     private Window totalWidget;
 
-    private final HttpConnector httpConnector;
-    private final JSONParser jsonParser;
-    private final PropertiesReader propertiesReader;
+    private Node addressWidgetContentNode;
+    private Node categoryWidgetContentNode;
+    private Node totalWidgetContentNode;
+
+    private HttpConnector httpConnector;
+    private JSONParser jsonParser;
+    private PropertiesReader propertiesReader;
 
     public WidgetManager() {
-        httpConnector = new HttpConnector();
-        jsonParser = new JSONParser();
-        propertiesReader = new PropertiesReader();
+        httpConnector = HttpConnector.getInstance();
+        jsonParser = FabricJsonParser.createInstance();
+        propertiesReader = PropertiesReader.getInstance();
     }
 
     public void initWidgets(Pane outerPane) throws IOException{
-        propertiesReader.readProperties();
+        propertiesReader.readUrlProperties();
         initAddressWidget(outerPane);
         initCategoryWidget(outerPane);
         initTotalWidget(outerPane);
+
+        if (addressWidget.getContentPane().getChildren().get(0) != null) {
+            addressWidgetContentNode = addressWidget.getContentPane().getChildren().get(0);
+        }
+        if (categoryWidget.getContentPane().getChildren().get(0) != null) {
+            categoryWidgetContentNode = categoryWidget.getContentPane().getChildren().get(0);
+        }
+        if (totalWidget.getContentPane().getChildren().get(0) != null) {
+            totalWidgetContentNode = totalWidget.getContentPane().getChildren().get(0);
+        }
     }
 
     public void fillWidgets() {
-        fillAddressWidget(addressWidget.getContentPane().getChildren().get(0), propertiesReader.getAllAddressesUrl());
-        fillCategoryWidget(categoryWidget.getContentPane().getChildren().get(0), propertiesReader.getAllCategoriesUrl());
-        fillTotalWidget(totalWidget.getContentPane().getChildren().get(0), propertiesReader.getTotalByAddressesAndCategoriesUrl());
+        fillAddressWidget(addressWidgetContentNode, propertiesReader.getAllAddressesUrl());
+        fillCategoryWidget(categoryWidgetContentNode, propertiesReader.getAllCategoriesUrl());
+        fillTotalWidget(totalWidgetContentNode, propertiesReader.getTotalByAddressesAndCategoriesUrl());
     }
 
     public Window getAddressWidget() {
@@ -104,7 +120,7 @@ public class WidgetManager {
             itemCheckBoxList.forEach(checkBox -> checkBox.setOnAction(event -> {
                     List<String> selectedCheckBoxList = getSelectedCheckBoxList(itemCheckBoxList);
                     updateCategories(selectedCheckBoxList);
-                    updateTotal(selectedCheckBoxList, getSelectedCheckBoxList(((ListView<CheckBox>) categoryWidget.getContentPane().getChildren().get(0)).getItems()));
+                    updateTotal(selectedCheckBoxList, getSelectedCheckBoxList(((ListView<CheckBox>) categoryWidgetContentNode).getItems()));
                     event.consume();
             }));
         }
@@ -130,7 +146,7 @@ public class WidgetManager {
             listView.setItems(FXCollections.observableArrayList(itemCheckBoxList));
 
             itemCheckBoxList.forEach(checkBox -> checkBox.setOnAction(event -> {
-                    updateTotal(getSelectedCheckBoxList(((ListView<CheckBox>) addressWidget.getContentPane().getChildren().get(0)).getItems()),
+                    updateTotal(getSelectedCheckBoxList(((ListView<CheckBox>) addressWidgetContentNode).getItems()),
                             getSelectedCheckBoxList(itemCheckBoxList));
                     event.consume();
             }));
@@ -162,24 +178,18 @@ public class WidgetManager {
     }
 
     private void updateCategories(List<String> selectedAddressesList) {
-        String url = propertiesReader.getCategoriesByAddressListUrl() + "?" + UrlParam.ADDRESSES;
-        String params;
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(propertiesReader.getCategoriesByAddressListUrl());
+        builder.queryParam(propertiesReader.getAddressListParam(), String.join(",", selectedAddressesList));
 
-        params = String.join("&" + UrlParam.ADDRESSES, selectedAddressesList);
-        String result = url + params;
-
-        fillCategoryWidget(categoryWidget.getContentPane().getChildren().get(0), result);
+        fillCategoryWidget(categoryWidgetContentNode, builder.build().encode().toString());
     }
 
     private void updateTotal(List<String> selectedAddressList, List<String> selectedCategoriesList) {
-        String addressesUrl = propertiesReader.getTotalByAddressesAndCategoriesUrl() + "?" + UrlParam.ADDRESSES;
-        String categoriesUrl = "&" + UrlParam.CATEGORIES;
-        String addressParams = String.join("&" + UrlParam.ADDRESSES, selectedAddressList);
-        String categoryParams = String.join("&" + UrlParam.CATEGORIES, selectedCategoriesList);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(propertiesReader.getTotalByAddressesAndCategoriesUrl());
+        builder.queryParam(propertiesReader.getAddressListParam(), String.join(",", selectedAddressList));
+        builder.queryParam(propertiesReader.getCategoriesListParam(), String.join(",", selectedCategoriesList));
 
-        String resultUrl = addressesUrl + addressParams + categoriesUrl + categoryParams;
-
-        fillTotalWidget(totalWidget.getContentPane().getChildren().get(0), resultUrl);
+        fillTotalWidget(totalWidgetContentNode, builder.build().encode().toString());
     }
 
     public void resetWidgetLocation() {

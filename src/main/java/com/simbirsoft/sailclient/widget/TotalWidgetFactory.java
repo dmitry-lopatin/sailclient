@@ -2,27 +2,27 @@ package com.simbirsoft.sailclient.widget;
 
 import javafx.scene.control.ListView;
 
-public class TotalWidgetFactory extends WidgetFactory {
+class TotalWidgetFactory extends WidgetFactory {
 
     @Override
     void setWidgetTitle() {
-        widget.setTitle("Total");
+        widget.setTitle(propertiesReader.getTotalWidgetTitle());
     }
 
     @Override
     void setWidgetLayout() {
-        widget.setLayoutX(150);
-        widget.setLayoutY(220);
+        widget.setLayoutX(propertiesReader.getTotalWidgetLayoutX());
+        widget.setLayoutY(propertiesReader.getTotalWidgetLayoutY());
     }
 
     @Override
     void setWidgetPrefSize() {
-        widget.setPrefSize(200, 75);
+        widget.setPrefSize(propertiesReader.getTotalWidgetPrefWidth(), propertiesReader.getTotalWidgetPrefHeight());
     }
 
     @Override
     void setWidgetMinSize() {
-        widget.setMinSize(150, 75);
+        widget.setMinSize(propertiesReader.getTotalWidgetMinWidth(), propertiesReader.getTotalWidgetMinHeight());
     }
     @Override
     void setWidgetResizable() {

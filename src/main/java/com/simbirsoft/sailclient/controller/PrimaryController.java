@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 
 import javafx.scene.layout.Pane;
 import jfxtras.labs.scene.control.window.Window;
-
 import com.simbirsoft.sailclient.widget.WidgetManager;
 
 public class PrimaryController {
