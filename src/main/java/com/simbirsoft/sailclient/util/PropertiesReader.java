@@ -2,6 +2,7 @@ package com.simbirsoft.sailclient.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesReader {
@@ -17,7 +18,7 @@ public class PropertiesReader {
 
     private PropertiesReader() {
         properties = new Properties();
-        try(FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties")) {
+        try(InputStream fileInputStream = (getClass().getResourceAsStream("/config.properties"))) {
             properties.load(fileInputStream);
         } catch (IOException e) {
             e.printStackTrace();
