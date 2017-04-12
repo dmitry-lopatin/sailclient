@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class PropertiesReader {
 
-    private Properties properties;
+    private final Properties properties;
     private String getAllAddressesUrl;
     private String getAllCategoriesUrl;
     private String getCategoriesByAddressListUrl;

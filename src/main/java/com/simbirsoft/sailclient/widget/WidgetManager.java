@@ -34,9 +34,9 @@ public class WidgetManager {
     private Node categoryWidgetContentNode;
     private Node totalWidgetContentNode;
 
-    private HttpConnector httpConnector;
-    private JSONParser jsonParser;
-    private PropertiesReader propertiesReader;
+    private final HttpConnector httpConnector;
+    private final JSONParser jsonParser;
+    private final PropertiesReader propertiesReader;
 
     public WidgetManager() {
         httpConnector = HttpConnector.getInstance();
